@@ -3,6 +3,7 @@ import logging
 import sys
 from os import getenv
 
+from keyboard import main_keyboard
 from time_file import formatted_time
 
 from aiogram import Bot, Dispatcher, html, F
@@ -16,13 +17,15 @@ dp = Dispatcher()
 async def start(message: Message):
     await message.answer(f'Вітаю у застосунку, {message.from_user.full_name}!')
     await message.answer(f'Поточний час: {formatted_time}')
-    await message.answer('Як у тебе справи? Обери місто для показу поточного прогнозу погоди.')
+    await message.answer('Обери потрібну дію.', reply_markup=main_keyboard)
 
 
 @dp.message(Command('help'))
 async def help(message: Message):
     await message.answer('Це вікно допомоги.')
-    await message.answer('Щоб отримати актуальну погоду твого міста, просто введи його назву.')
+    await message.answer('Щоб отримати актуальну погоду твого міста, просто введи його назву, '
+                         'або вибери із найпопулярніших')
+
 
 
 async def main():
